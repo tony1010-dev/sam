@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#ff5c35" />
-    <title>이샘 피하기</title>
+    <title>이샘 괴롭히기</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap" rel="stylesheet" />
@@ -13,11 +13,23 @@
   <body>
     <main class="page-shell">
       <header class="brand">
-        <span class="brand__eyebrow">STEALTH MODE</span>
-        <h1>이샘 <em>피하기</em></h1>
-        <p>수업 종이 울렸다. 복도에서 이샘을 마주치지 마!</p>
+        <span class="brand__eyebrow">ISAEM MINI ARCADE</span>
+        <h1>이샘 <em>괴롭히기</em></h1>
+        <p id="gameDescription">수업 종이 울렸다. 복도에서 이샘을 마주치지 마!</p>
       </header>
 
+      <nav class="game-menu" aria-label="게임 선택">
+        <button class="game-menu__button game-menu__button--active" type="button" data-game="isaem">
+          <span>01</span>
+          <strong>이샘 피하기</strong>
+        </button>
+        <button class="game-menu__button" type="button" data-game="breakout">
+          <span>02</span>
+          <strong>벽돌깨기</strong>
+        </button>
+      </nav>
+
+      <div id="isaemGame" class="game-screen game-screen--active">
       <section class="game-card" aria-label="이샘 피하기 게임">
         <div class="hud">
           <div>
@@ -89,9 +101,67 @@
           <button id="rightButton" type="button" aria-label="오른쪽으로 이동">→</button>
         </div>
       </section>
+      </div>
+
+      <div id="breakoutGame" class="game-screen">
+        <section class="game-card breakout-card" aria-label="벽돌깨기 게임">
+          <div class="hud breakout-hud">
+            <div>
+              <span class="hud__label">SCORE</span>
+              <strong id="breakoutScore">0000</strong>
+            </div>
+            <div class="breakout-lives" aria-label="남은 공">
+              <span id="life1">●</span>
+              <span id="life2">●</span>
+              <span id="life3">●</span>
+            </div>
+            <div class="hud__best">
+              <span class="hud__label">BEST</span>
+              <strong id="breakoutBest">0000</strong>
+            </div>
+          </div>
+
+          <div class="breakout-area">
+            <canvas id="breakoutCanvas" width="552" height="560" aria-label="벽돌깨기 게임 화면"></canvas>
+
+            <div id="breakoutStartPanel" class="panel panel--visible breakout-panel">
+              <div class="panel__sticker panel__sticker--breakout">CLASSIC</div>
+              <h2>벽돌을 전부<br /><span>깨부숴!</span></h2>
+              <p class="panel__how">
+                <span>⌨</span> 방향키 · A D<br />
+                <span>☝</span> 마우스 또는 터치로 바 이동
+              </p>
+              <button id="breakoutStartButton" class="primary-button" type="button">
+                <span>게임 시작</span>
+                <b>●</b>
+              </button>
+            </div>
+
+            <div id="breakoutOverPanel" class="panel breakout-panel">
+              <div id="breakoutResultSticker" class="panel__sticker panel__sticker--breakout">GAME OVER</div>
+              <h2 id="breakoutResultTitle">공을<br /><span>놓쳤다!</span></h2>
+              <div class="result">
+                <span>이번 점수</span>
+                <strong id="breakoutFinalScore">0점</strong>
+              </div>
+              <p id="breakoutMessage" class="result-message">바를 움직여 다시 받아내자!</p>
+              <button id="breakoutRestartButton" class="primary-button" type="button">
+                <span>다시 도전</span>
+                <b>↻</b>
+              </button>
+            </div>
+          </div>
+
+          <div class="mobile-controls breakout-mobile-controls" aria-label="벽돌깨기 모바일 조작 버튼">
+            <button id="breakoutLeftButton" type="button" aria-label="바를 왼쪽으로 이동">←</button>
+            <span>MOVE BAR</span>
+            <button id="breakoutRightButton" type="button" aria-label="바를 오른쪽으로 이동">→</button>
+          </div>
+        </section>
+      </div>
 
       <footer>
-        <span>오래 버틸수록 점수가 올라가요</span>
+        <span id="footerHint">오래 버틸수록 점수가 올라가요</span>
         <span class="footer-dot"></span>
         <button id="soundButton" type="button" aria-label="소리 켜기 또는 끄기">SOUND ON</button>
       </footer>
