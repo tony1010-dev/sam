@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#ff5c35" />
+    <title>이샘 피하기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="brand">
+        <span class="brand__eyebrow">STEALTH MODE</span>
+        <h1>이샘 <em>피하기</em></h1>
+        <p>수업 종이 울렸다. 복도에서 이샘을 마주치지 마!</p>
+      </header>
+
+      <section class="game-card" aria-label="이샘 피하기 게임">
+        <div class="hud">
+          <div>
+            <span class="hud__label">SCORE</span>
+            <strong id="score">0000</strong>
+          </div>
+          <div class="hud__center" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="hud__best">
+            <span class="hud__label">BEST</span>
+            <strong id="bestScore">0000</strong>
+          </div>
+        </div>
+
+        <div id="gameArea" class="game-area">
+          <div class="hallway" aria-hidden="true">
+            <div class="ceiling-light light-1"></div>
+            <div class="ceiling-light light-2"></div>
+            <div class="window window-1"></div>
+            <div class="window window-2"></div>
+            <div class="window window-3"></div>
+            <div class="door door-1"><span>2-1</span></div>
+            <div class="door door-2"><span>2-2</span></div>
+            <div class="floor-lines"></div>
+          </div>
+
+          <div id="player" class="player" aria-label="플레이어">
+            <div class="player__head"></div>
+            <div class="player__body">
+              <span class="player__bag"></span>
+            </div>
+            <div class="player__feet"></div>
+          </div>
+
+          <div id="startPanel" class="panel panel--visible">
+            <div class="panel__sticker">MISSION</div>
+            <h2>이샘에게<br /><span>들키지 마!</span></h2>
+            <p class="panel__how">
+              <span>⌨</span> 방향키 · A D<br />
+              <span>☝</span> 화면을 좌우로 드래그
+            </p>
+            <button id="startButton" class="primary-button" type="button">
+              <span>게임 시작</span>
+              <b>→</b>
+            </button>
+          </div>
+
+          <div id="gameOverPanel" class="panel">
+            <div class="panel__sticker panel__sticker--caught">딱 걸림!</div>
+            <h2>이샘과<br /><span>눈이 마주쳤다</span></h2>
+            <div class="result">
+              <span>이번 기록</span>
+              <strong id="finalScore">0점</strong>
+            </div>
+            <p id="resultMessage" class="result-message">조금만 더 조심해 보자!</p>
+            <button id="restartButton" class="primary-button" type="button">
+              <span>다시 도전</span>
+              <b>↻</b>
+            </button>
+          </div>
+
+          <div id="countdown" class="countdown" aria-live="polite"></div>
+        </div>
+
+        <div class="mobile-controls" aria-label="모바일 조작 버튼">
+          <button id="leftButton" type="button" aria-label="왼쪽으로 이동">←</button>
+          <span>MOVE</span>
+          <button id="rightButton" type="button" aria-label="오른쪽으로 이동">→</button>
+        </div>
+      </section>
+
+      <footer>
+        <span>오래 버틸수록 점수가 올라가요</span>
+        <span class="footer-dot"></span>
+        <button id="soundButton" type="button" aria-label="소리 켜기 또는 끄기">SOUND ON</button>
+      </footer>
+    </main>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
