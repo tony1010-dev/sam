@@ -325,7 +325,7 @@ const breakout = {
   level: 1,
   keys: { left: false, right: false },
   paddle: { x: 216, y: 523, width: 120, height: 14, speed: 420 },
-  ball: { x: 276, y: 500, radius: 18, vx: 225, vy: -250, stuck: true },
+  ball: { x: 276, y: 500, radius: 23, vx: 225, vy: -250, stuck: true, angle: 0 },
   bricks: [],
 };
 
@@ -370,6 +370,7 @@ function resetBall(stuck = true) {
   breakout.ball.vx = direction * (210 + speedBoost);
   breakout.ball.vy = -(245 + speedBoost);
   breakout.ball.stuck = stuck;
+  breakout.ball.angle = 0;
 }
 
 function drawRoundedRect(x, y, width, height, radius, fill, shadow = null) {
@@ -434,8 +435,10 @@ function drawBreakout() {
 
   if (breakoutBallImage.complete && breakoutBallImage.naturalWidth) {
     breakoutContext.save();
+    breakoutContext.translate(ball.x, ball.y);
+    breakoutContext.rotate(ball.angle);
     breakoutContext.beginPath();
-    breakoutContext.arc(ball.x, ball.y, ball.radius - 2, 0, Math.PI * 2);
+    breakoutContext.arc(0, 0, ball.radius - 2, 0, Math.PI * 2);
     breakoutContext.clip();
 
     const sourceSize = Math.min(breakoutBallImage.naturalWidth, breakoutBallImage.naturalHeight);
@@ -447,8 +450,8 @@ function drawBreakout() {
       sourceY,
       sourceSize,
       sourceSize,
-      ball.x - ball.radius + 2,
-      ball.y - ball.radius + 2,
+      -ball.radius + 2,
+      -ball.radius + 2,
       ball.radius * 2 - 4,
       ball.radius * 2 - 4,
     );
@@ -531,6 +534,7 @@ function updateBreakout(time) {
     const ball = breakout.ball;
     ball.x += ball.vx * delta;
     ball.y += ball.vy * delta;
+    ball.angle += delta * 5.5 * (ball.vx >= 0 ? 1 : -1);
 
     if (ball.x - ball.radius <= 0 && ball.vx < 0) {
       ball.x = ball.radius;
@@ -620,6 +624,7 @@ function moveBreakoutPaddle(clientX) {
 
 breakoutCanvas.addEventListener("pointerdown", (event) => {
   if (activeGame !== "breakout") return;
+  event.preventDefault();
   moveBreakoutPaddle(event.clientX);
   launchBreakoutBall();
 });
@@ -702,4 +707,10 @@ function switchGame(gameName) {
 
 menuButtons.forEach((button) => {
   button.addEventListener("click", () => switchGame(button.dataset.game));
+});
+
+document.querySelectorAll(".game-menu, .game-card").forEach((element) => {
+  element.addEventListener("contextmenu", (event) => event.preventDefault());
+  element.addEventListener("selectstart", (event) => event.preventDefault());
+  element.addEventListener("dragstart", (event) => event.preventDefault());
 });

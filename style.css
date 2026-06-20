@@ -40,6 +40,19 @@ button {
   font: inherit;
 }
 
+.game-menu,
+.game-card {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.game-card img,
+.game-card canvas {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .page-shell {
   width: min(94vw, 560px);
   margin: 0 auto;
